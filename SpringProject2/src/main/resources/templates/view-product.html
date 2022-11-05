@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>UPDATE PRODUCT</h1>
+	<form th:action="@{/cartitem/get/ }" th:object="${product}" enctype="multipart/form-data">
+		<input th:value="*{id}"  name ="id" readonly/>
+		<input th:value="*{name}"/>
+		<input th:value="*{price}"/>
+		<input th:value="*{categoryName}"/>
+		<input type="hidden" th:value="*{imageUrl}" readonly >
+		<img id="oldImage"  width="100px" height="100px" th:src ="@{${product.ImagePath}}">
+		<input type="number" name="quantity" id="quantity" min="0" max ="5" value="0"/>
+		<input type="submit" value="Add to cart"/>
+	</form>
+</script>
+</body>
+</html>

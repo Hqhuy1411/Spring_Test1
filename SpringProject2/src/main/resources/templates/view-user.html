@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Hello</h1>
+	
+	<input th:value="${user.id}" />
+	<input th:value="${user.username}" />
+	<input th:value="${user.password}" />
+	<table id ="table1">
+		<tr> 
+			<td>ID</td>
+			<td>NAME</td>
+			<td>PRICE</td>
+			<td>CATEGORY</td>
+			<td>Image</td>
+		</tr>
+		<tr th:each="i : ${list}">
+			<td><p th:text="${i.id}"></p></td>
+			<td><p th:text="${i.name}"></p></td>
+<!-- 			<td><p th:text="${i.price}"></p></td> -->
+			<td>[[${i.price}]]</td>
+			<td><p th:text="${i.categoryName}"></p></td>
+			<td><img alt="Loi" width="100px" height="100px" th:src="@{${i.ImagePath}}" ></td>
+			<td><a th:href="@{'/cartitem/delete/' + ${i.id}}" onclick="return confirm('Want to delete!?')">Delete</a></td>
+			
+
+		</tr>
+	</table>
+	<table id ="table2">
+		<tr>
+			<td>Quantily</td>
+			<td>Action</td>
+		</tr>
+		<tr th:each="quantily : ${quantilys}">
+			<td>[[${quantily}]]</td>
+			
+		</tr>
+	</table>
+	<span id="val1"></span>
+	<span id="val2"></span>
+	<script type="text/javascript">
+	
+	    var table1 = document.getElementById("table1");
+	    var table2 = document.getElementById("table2");
+	    var result = 0;
+	    var sum = 0;
+	    for(var i =1 ; i < table1.rows.length ; i++){
+	        sum = sum + parseInt(table1.rows[i].cells[2].innerHTML);
+	    }
+	    document.getElementById("val1").innerHTML = "Sum Value " + sum;
+	    
+	    
+	    for(var i =1 ; i < table2.rows.length ; i++){
+	    	result = result + parseInt(table1.rows[i].cells[2].innerHTML)*parseInt(table2.rows[i].cells[0].innerHTML);
+	    }
+	    document.getElementById("val2").innerHTML = "Result Value " + result;
+	 	//console.log (document.getElementById("table1").rows.length.innerHTML)
+ 		//console.log( document.getElementById("table1").rows[1].cells[2].innerHTML);
+	   // console.log( typeof document.getElementById("table1").rows[1].cells[2].innerHTML);
+	</script>
+</body>
+</html>

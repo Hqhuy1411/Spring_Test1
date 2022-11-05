@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title> 
+</head>
+<body>
+	<h1>LIST CATEGORY</h1>
+	<h1 >Welcome [[${#httpServletRequest.remoteUser}]]</h1>
+	<div sec:authorize="isAuthenticated()">
+		Welcome <b><span sec:authentication="name">Username</span></b> 
+		<span sec:authentication="principal.authorities">Roles</span>
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Logout" />
+		</form>
+	</div>
+	<table>
+		<tr> 
+			<td>ID</td>
+			<td>NAME</td>
+			<td>PRICE</td>
+			<td>CATEGORY</td>
+			<td>Image</td>
+			<td sec:authorize="hasRole('ADMIN')">Action</td>
+		</tr>
+		<tr th:each="i : ${list}">
+			<td><p th:text="${i.id}"></p></td>
+			<td><p th:text="${i.name}"></p></td>
+			<td><p th:text="${i.price}"></p></td>
+			<td><p th:text="${i.categoryName}"></p></td>
+			<td><img alt="Loi" width="100px" height="100px" th:src="@{${i.ImagePath}}" ></td>
+			<td sec:authorize="hasRole('ADMIN')"><a th:href="@{'/product/update/' + ${i.id}}">Update</a></td>
+			<td sec:authorize="hasRole('ADMIN')"><a th:href="@{'/product/delete/' + ${i.id}}" onclick="return confirm('Want to delete!?')">Delete</a></td>
+			<td sec:authorize="hasRole('USER')"><a th:href="@{'/product/get/' + ${i.id}}">View</a></td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>ADD CATEGORY</h1>
+	<form th:action="@{/product/add}" method="post" th:object="${product}" enctype="multipart/form-data">
+		Name :<input type="text" placeholder="Name of product" name ="name" required/>
+		Price <input type="text" placeholder="$$$$" name ="price" required/>
+		Category: <select name="categoryName">
+					<option>--</option>
+					<option th:each="i : ${listCategory}" th:value="${i}"
+						th:text="${i}" />
+					</select> <br /> <br /> 
+		<input type="file" name="file"  accept="image/png, image/jpeg"/>
+		<input type="submit" value="Submit"/>
+	</form>
+</body>
+</html>
